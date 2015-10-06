@@ -1,5 +1,5 @@
 # catfacts-textbelt
-Send catfacts to your "friends" using TOR and textbelt
+Send catfacts unlimited to your "friends" using TOR and textbelt
 
 usage:
 
