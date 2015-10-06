@@ -8,8 +8,8 @@ fi
 
 #Might not work outside US?
 valid_number="^[0-9]{10}$"
-    while read fact
-    do
+while read fact
+do
     while read number
     do
         if [[ ! $number =~ $valid_number ]]
