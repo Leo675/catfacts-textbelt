@@ -1,7 +1,11 @@
 # catfacts-textbelt
 Send unlimited catfacts to your "friends" using TOR and textbelt
 
-usage:
+Configuration:
+
+Change the unsubscribe_message to your desire. Or leave it with mine. It doesn't work of course, but maybe you could remove people if it gives them a way to contact you.
+
+Usage:
 ```
 ./meow.sh 1234567890
 ```
