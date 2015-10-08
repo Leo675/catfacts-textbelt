@@ -11,7 +11,7 @@ or
 ```
 or 
 
-collect a list of phone numbers in numbers.txt and just run ./meow.sh without input
+Collect a list of phone numbers in numbers.txt and run ./meow.sh without input
 
 Do not include a 1 country code at the beggining of numbers
 Do include the 0 at the beginning of international numbers
