@@ -18,9 +18,7 @@ Do include the 0 at the beginning of international numbers
 
 Collecting numbers from twitter:
 Fill in the config.ini file with your Twitter API credentials
-
 ```
 python stream.py
 ```
-
 Numbers will be saved to numbers.txt
