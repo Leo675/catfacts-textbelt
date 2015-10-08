@@ -15,6 +15,14 @@ else
     sdtin_numbers=1
 fi
 
+#function for getting a new IP address
+new_ip(){
+    getting new IP address from TOR
+    pidof tor | xargs sudo kill -HUP
+    i=0
+    sleep 10
+}
+         
 valid_number="^[0-9]{10,13}$"
 international_number="^0"
 canadian_number='^(204|226|236|249|250|289|306|343|365|403|416|418|431|437|438|450|506|514|519|579|581|587|604|613|639|647|705|709|778|780|807|819|867|873|902|905)'
@@ -48,27 +56,33 @@ do
         
         #sends fact via curl POST
         echo -e "sending fact: '$fact$unsubscribe_message' to $number using $post_url"
-        torsocks curl -X POST $post_url -d number=$number -d "message=$fact$unsubscribe_message"
+        response=$(torsocks curl -s -X POST $post_url -d number=$number -d "message=$fact$unsubscribe_message")
+        echo "$response"
         #auto increment
         ((i++))
         
+        if [[ $response == *'"message": "Exceeded quota for this IP address.'* ]]
+        then
+            new_ip
+        fi
+
         #gets new TOR IP if 60 messages have been sent this round (docs say limit is 75/day/ip)
         if [[ i -gt 60 ]]
         then
             echo '60 messages sent, getting new tor IP'
-            pidof tor | xargs sudo kill -HUP
-            i=0
-            sleep 10
+            new_ip
         fi
         
     done <<< "$number_list"
     #if stdin was used for number list, get a new ip and sleep for a randomish amount of time.
     if [[ sdtin_numbers -eq 1 ]]
     then
-        pidof tor | xargs sudo kill -HUP
-        i=0
+        new_ip
         #sleeps for a randomish amount of time
         sleep $(( ( RANDOM % 500 )  + 100 ))
+    else
+        nohup ./meow.sh &
+        exit 0
     fi
 #shuffles the cat facts file so the fact order varies
 done <<< "$(shuf catfacts.txt)"
