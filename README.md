@@ -21,6 +21,7 @@ Do not include a 1 country code at the beggining of numbers
 Do include the 0 at the beginning of international numbers
 
 Collecting numbers from twitter:
+
 Fill in the config.ini file with your Twitter API credentials
 ```
 python stream.py
