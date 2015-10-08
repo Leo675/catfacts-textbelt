@@ -17,7 +17,7 @@ fi
 
 #function for getting a new IP address
 new_ip(){
-    getting new IP address from TOR
+    echo 'getting new IP address from TOR'
     pidof tor | xargs sudo kill -HUP
     i=0
     sleep 10
@@ -69,7 +69,7 @@ do
         #gets new TOR IP if 60 messages have been sent this round (docs say limit is 75/day/ip)
         if [[ i -gt 60 ]]
         then
-            echo '60 messages sent, getting new tor IP'
+            echo '60 messages sent'
             new_ip
         fi
         
