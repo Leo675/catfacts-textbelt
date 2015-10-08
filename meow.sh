@@ -58,7 +58,7 @@ do
             echo '60 messages sent, getting new tor IP'
             pidof tor | xargs sudo kill -HUP
             i=0
-            sleep 30
+            sleep 10
         fi
         
     done <<< "$number_list"
