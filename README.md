@@ -1,7 +1,7 @@
 # catfacts-textbelt
 Send unlimited catfacts to your "friends" using TOR and textbelt
 
-Configuration:
+<h3>Configuration:</h3>
 
 Change the unsubscribe_message to your desire. Or leave it with mine. It doesn't work of course, but maybe you could remove people if it gives them a way to contact you.
 
