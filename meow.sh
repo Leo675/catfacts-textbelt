@@ -33,6 +33,8 @@ unsubscribe_message=' To unsubscribe, tweet "Meow, I did not mean to tweet my ph
 #increment to count messages
 i=0
 
+send_messages(){
+
 while read fact
 do
     while read number
@@ -41,6 +43,7 @@ do
         if [[ ! $number =~ $valid_number ]]
         then
             echo Invalid phone number $number
+            
             continue
         #checks if number starts with 0 to use international bridge
         elif [[ $number =~ $international_number ]]
@@ -63,16 +66,13 @@ do
         ((i++))
         
         #Automatic IP rotation on failure
-        if [[ $response =~ $failure ]]
-        then
-            until [[ ! $response =~ $failure ]]
-            do
-                new_ip
-                echo -e "re-sending fact: '$fact$unsubscribe_message' to $number using $post_url"
-                response=$(torsocks curl -s -X POST $post_url -d number=$number -d "message=$fact$unsubscribe_message")
-                echo "$response"
-            done
-        fi
+        until [[ ! $response =~ $failure ]]
+        do
+            new_ip
+            echo -e "re-sending fact: '$fact$unsubscribe_message' to $number using $post_url"
+            response=$(torsocks curl -s -X POST $post_url -d number=$number -d "message=$fact$unsubscribe_message")
+            echo "$response"
+        done
 
         #gets new TOR IP if 60 messages have been sent this round (docs say limit is 75/day/ip)
         if [[ i -gt 60 ]]
@@ -90,8 +90,11 @@ do
         sleep $(( ( RANDOM % 500 )  + 100 ))
     else
         #restarts the script to get the new streaming phone numbers
-        ./meow.sh &
-        exit 0
+        send_messages
+        break 2
     fi
 #shuffles the cat facts file so the fact order varies
 done <<< "$(shuf catfacts.txt)"
+
+}
+send_messages
