@@ -42,7 +42,6 @@ do
         if [[ ! $number =~ $valid_number ]]
         then
             echo Invalid phone number $number
-            
             continue
         #checks if number starts with 0 to use international bridge
         elif [[ $number =~ $international_number ]]
