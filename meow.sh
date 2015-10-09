@@ -22,7 +22,8 @@ new_ip(){
     i=0
     sleep 10
 }
-         
+
+failure='"message": "Exceeded quota for this IP address.|CloudFlare'
 valid_number="^[0-9]{10,13}$"
 international_number="^0"
 canadian_number='^(204|226|236|249|250|289|306|343|365|403|416|418|431|437|438|450|506|514|519|579|581|587|604|613|639|647|705|709|778|780|807|819|867|873|902|905)'
@@ -61,7 +62,7 @@ do
         #auto increment
         ((i++))
         
-        if [[ $response == *'"message": "Exceeded quota for this IP address.'* ]]
+        if [[ $response =~ $failure ]]
         then
             new_ip
         fi
@@ -81,7 +82,7 @@ do
         #sleeps for a randomish amount of time
         sleep $(( ( RANDOM % 500 )  + 100 ))
     else
-        nohup ./meow.sh &
+        ./meow.sh &
         exit 0
     fi
 #shuffles the cat facts file so the fact order varies
