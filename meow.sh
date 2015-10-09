@@ -65,6 +65,9 @@ do
         if [[ $response =~ $failure ]]
         then
             new_ip
+            echo -e "re-sending fact: '$fact$unsubscribe_message' to $number using $post_url"
+            response=$(torsocks curl -s -X POST $post_url -d number=$number -d "message=$fact$unsubscribe_message")
+            echo "$response"
         fi
 
         #gets new TOR IP if 60 messages have been sent this round (docs say limit is 75/day/ip)
@@ -82,6 +85,7 @@ do
         #sleeps for a randomish amount of time
         sleep $(( ( RANDOM % 500 )  + 100 ))
     else
+        #restarts the script to get the new streaming phone numbers
         ./meow.sh &
         exit 0
     fi
