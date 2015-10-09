@@ -65,7 +65,7 @@ do
         #Automatic IP rotation on failure
         if [[ $response =~ $failure ]]
         then
-            until [[ $response == *'"success": true'* ]]
+            until [[ ! $response =~ $failure ]]
             do
                 new_ip
                 echo -e "re-sending fact: '$fact$unsubscribe_message' to $number using $post_url"
