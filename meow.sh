@@ -20,7 +20,7 @@ new_ip(){
     echo 'getting new IP address from TOR'
     pidof tor | xargs sudo kill -HUP
     i=0
-    sleep 10
+    sleep 14
 }
 
 failure='"message": "Exceeded quota for this IP address.|CloudFlare'
