@@ -34,7 +34,6 @@ unsubscribe_message=' To unsubscribe, tweet "Meow, I did not mean to tweet my ph
 i=0
 
 send_messages(){
-
 while read fact
 do
     while read number
@@ -95,6 +94,6 @@ do
     fi
 #shuffles the cat facts file so the fact order varies
 done <<< "$(shuf catfacts.txt)"
-
 }
+
 send_messages
