@@ -88,9 +88,9 @@ do
         #sleeps for a randomish amount of time
         sleep $(( ( RANDOM % 500 )  + 100 ))
     else
-        #restarts the script to get the new streaming phone numbers
+        #restarts the function to get the new streaming phone numbers
         send_messages
-        break 2
+        break
     fi
 #shuffles the cat facts file so the fact order varies
 done <<< "$(shuf catfacts.txt)"
