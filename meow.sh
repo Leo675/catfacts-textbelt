@@ -62,12 +62,16 @@ do
         #auto increment
         ((i++))
         
+        #Automatic IP rotation on failure
         if [[ $response =~ $failure ]]
         then
-            new_ip
-            echo -e "re-sending fact: '$fact$unsubscribe_message' to $number using $post_url"
-            response=$(torsocks curl -s -X POST $post_url -d number=$number -d "message=$fact$unsubscribe_message")
-            echo "$response"
+            until [[ $response == *'"success": true'* ]]
+            do
+                new_ip
+                echo -e "re-sending fact: '$fact$unsubscribe_message' to $number using $post_url"
+                response=$(torsocks curl -s -X POST $post_url -d number=$number -d "message=$fact$unsubscribe_message")
+                echo "$response"
+            done
         fi
 
         #gets new TOR IP if 60 messages have been sent this round (docs say limit is 75/day/ip)
